@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormOpenSocket", "FormOpenSocket\FormOpenSocket.csproj", "{19417D9C-9A56-492E-89EF-79A7B4C03E6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Contols\Controls.csproj", "{C76ACF4C-500A-4E9F-994C-554A72974C81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Debug|x86.ActiveCfg = Debug|x86
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Debug|x86.Build.0 = Debug|x86
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Release|x86.ActiveCfg = Release|x86
+		{19417D9C-9A56-492E-89EF-79A7B4C03E6A}.Release|x86.Build.0 = Release|x86
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Debug|x86.Build.0 = Debug|Any CPU
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Release|x86.ActiveCfg = Release|Any CPU
+		{C76ACF4C-500A-4E9F-994C-554A72974C81}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1254FDB-2631-4958-96F8-A84310E9824B}
+	EndGlobalSection
+EndGlobal
