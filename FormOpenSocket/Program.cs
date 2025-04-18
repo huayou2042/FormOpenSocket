@@ -15,6 +15,8 @@ namespace FormOpenSocket
         static void Main()
         {
             GlobalVar.logger.Info("程序启动");
+            #region  测试代码
+            /*
             string h = "AA 55 05 00 00 01 00 02 05 05 12 00 FA F5";
             byte[] b = BytesConverter.HexStringToBytes(h);
             var transfer2 = Transfer.FromBytes(b, true);
@@ -22,8 +24,6 @@ namespace FormOpenSocket
             string p = transfer2.Value.ToHex(" ");
             System.Diagnostics.Trace.WriteLine("h   " + h);
             System.Diagnostics.Trace.WriteLine("p   " + p);
-
-            return;
 
             System.Diagnostics.Trace.WriteLine("                ：" + "AA 55 05 00 00 01 00 01 00 00 00 FA F5");
             Transfer transfer = new Transfer(1);
@@ -42,7 +42,8 @@ namespace FormOpenSocket
             Transfer transfer1 = new Transfer(0);
             transfer1.FunctionId = 0x0810;
             System.Diagnostics.Trace.WriteLine("带校验和的数据= ：" + transfer1.ToHex());
-
+            */
+            #endregion
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => { Console.WriteLine("Unhandled Exception: " + e.ExceptionObject.ToString()); };
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());

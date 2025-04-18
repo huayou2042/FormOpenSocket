@@ -12,20 +12,44 @@ using Controls.Entity;
 
 namespace Controls.Controls
 {
-    public partial class ButtonTransfer : UserControl
+    public partial class ButtonTransfer : BaseControl
     {
         public ButtonTransfer()
         {
             InitializeComponent();
             fontText = base.Font;
         }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+
+        [Browsable(true)]
+        [Category("Customize")]
+        [Description("数据长度")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ushort Length { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public ushort FunctionId {  get; set; }
+
+        [Browsable(true)]
+        [Category("Customize")]
+        [Description("十六进制数据")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string Hex { get; set; } = string.Empty;
+
+        [Browsable(true)]
+        [Category("Customize")]
+        [Description("功能码")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string FunctionId { get; set; } = string.Empty;
+
+        string _text = string.Empty;
+        [Browsable(true)]
+        [Category("Customize")]
+        [Description("控件的显示文本")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override string Text { get { return _text; } set { _text = value; this.Refresh(); } }
 
         Font fontText;
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Browsable(true)]
+        [Category("Customize")]
+        [Description("控件的显示字体")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Font TextFont { get { return fontText; } set { fontText = value; this.Refresh(); } }
 
         bool isOn = false;

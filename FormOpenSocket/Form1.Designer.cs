@@ -35,6 +35,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             richTextBox2 = new RichTextBox();
             groupBox1 = new GroupBox();
+            buttonTransfer1 = new Controls.Controls.ButtonTransfer();
             groupBox2 = new GroupBox();
             label3 = new Label();
             tbServerIp = new TextBox();
@@ -112,6 +113,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(buttonTransfer1);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(btnListen);
             groupBox1.Controls.Add(tbListenPort);
@@ -122,6 +124,18 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "服务端";
+            // 
+            // buttonTransfer1
+            // 
+            buttonTransfer1.BorderStyle = BorderStyle.FixedSingle;
+            buttonTransfer1.FunctionId = "0500";
+            buttonTransfer1.Length = (ushort)1;
+            buttonTransfer1.Location = new Point(119, 13);
+            buttonTransfer1.Name = "buttonTransfer1";
+            buttonTransfer1.Size = new Size(191, 122);
+            buttonTransfer1.TabIndex = 4;
+            buttonTransfer1.Text = "123456789";
+            buttonTransfer1.TextFont = new Font("Microsoft YaHei UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
             // groupBox2
             // 
@@ -211,5 +225,6 @@
         private TextBox textBox2;
         private RichTextBox richTextBox1;
         private RichTextBox richTextBox2;
+        private Controls.Controls.ButtonTransfer buttonTransfer1;
     }
 }

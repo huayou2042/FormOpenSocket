@@ -1,6 +1,6 @@
 ﻿using NLog;
 
-namespace FormOpenSocket
+namespace Controls.Tool
 {
     /// <summary>
     /// 全局变量
