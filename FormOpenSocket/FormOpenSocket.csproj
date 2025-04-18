@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contols\Controls.csproj" />
+    <ProjectReference Include="..\Util\Util.csproj" />
   </ItemGroup>
 
 </Project>

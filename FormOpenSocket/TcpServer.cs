@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace FormOpenSocket
+namespace FormOpenSocket111
 {
     public class ClientData
     {
@@ -17,16 +17,18 @@ namespace FormOpenSocket
     }
     public class TcpServer
     {
+        TcpListener listener;
         public event EventHandler<TcpClient> ClientConnected;
         public event EventHandler<TcpClient> ClientDisconnected;
         public event EventHandler<ClientData> DataReceived;
-        public async Task listen(string ip, int port = 4545)
+        public TcpServer() {}
+        public async void listen(string ip, int port = 4545)
         {
             try
             {
                 IPAddress ipAddress = IPAddress.Parse(ip); // 设置监听的IP地址
 
-                using (TcpListener listener = new TcpListener(ipAddress, port))
+                listener = new TcpListener(ipAddress, port);
                 {
 
                     listener.Start();
@@ -41,9 +43,9 @@ namespace FormOpenSocket
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -76,6 +78,11 @@ namespace FormOpenSocket
             // 反馈信息给客户端
             byte[] responseBuffer = Encoding.UTF8.GetBytes("Message received.");
             await client.GetStream().WriteAsync(buffer, offset, count);
+        }
+
+        public void Stop()
+        {
+            listener.Stop();
         }
     }
 }

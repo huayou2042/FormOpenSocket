@@ -1,13 +1,15 @@
 using System.Net.Sockets;
 using Controls.Tool;
+using FormOpenSocket111;
+using Util;
 
 namespace FormOpenSocket
 {
     public partial class Form1 : Form
     {
         OpenSocketV3Client client = new OpenSocketV3Client();
-        TcpServer tcpServer = new TcpServer();
-        Dictionary<string, TcpClient> dicClients = new Dictionary<string, TcpClient>();
+        ServerTcp tcpServer = new ServerTcp();
+        Dictionary<string, Socket> dicClients = new Dictionary<string, Socket>();
         System.Windows.Forms.Timer timer;
         public Form1()
         {
@@ -16,9 +18,10 @@ namespace FormOpenSocket
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
+            tcpServer = new Util.ServerTcp();
         }
 
-        private async void Timer_Tick(object? sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             try
             {
@@ -27,7 +30,7 @@ namespace FormOpenSocket
                 foreach (var client in dicClients.Values)
                 {
                     byte[] data = BytesConverter.HexStringToBytes("AA 55 05 00 00 01 00 01 00 00 00 FA F5");
-                    await tcpServer.Write(client, data, 0, data.Length);
+                    tcpServer.Write(data, 0, data.Length);
                 }
             }
             catch { }
@@ -42,12 +45,19 @@ namespace FormOpenSocket
         {
             try
             {
-                if (btnListen.Text == "")
-                    tcpServer = new TcpServer();
-                await tcpServer.listen(tbServerIp.Text, Convert.ToInt32(tbListenPort.Text));
-                tcpServer.ClientConnected += TcpServer_ClientConnected;
-                tcpServer.ClientDisconnected += TcpServer_ClientDisconnected;
-                tcpServer.DataReceived += TcpServer_DataReceived;
+                if (btnListen.Text == "¼àÌý")
+                {
+                    tcpServer.Listen(tbServerIp.Text, Convert.ToInt32(tbListenPort.Text));
+                    //tcpServer.ClientConnected += TcpServer_ClientConnected;
+                    //tcpServer.ClientDisconnected += TcpServer_ClientDisconnected;
+                    //tcpServer.DataReceived += TcpServer_DataReceived;
+                    this.btnListen.Text = "Í£Ö¹¼àÌý";
+                }
+                else
+                {
+                    tcpServer.Stop();
+                    this.btnListen.Text = "¼àÌý";
+                }
             }
             catch (Exception ex)
             {

@@ -1,8 +1,11 @@
+using System.Configuration;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using Controls.Entity;
 using Controls.Tool;
 using NLog;
+using Util;
 
 namespace FormOpenSocket
 {
@@ -16,6 +19,42 @@ namespace FormOpenSocket
         {
             GlobalVar.logger.Info("程序启动");
             #region  测试代码
+            /*
+            TcpServer tcpServer ;
+
+            IPEndPoint local = new IPEndPoint(IPAddress.Parse("10.168.1.154"), 10011);
+
+            IPEndPoint remote = new IPEndPoint(IPAddress.Any, 0);
+            tcpServer = new TcpServer(new Util.Configuration() { LocalEndPoint = local, RemoteEndPoint = remote, ReceiveBufferSize = 2048, MaxConnection = 5 });
+            
+            Console.WriteLine("Waiting for a client");
+            string clientWrite = "";
+            while (true)
+            {
+                clientWrite = Console.ReadLine();
+                string sendStr = "Server_Send:" + clientWrite;
+                if (clientWrite.ToLower() == "end")
+                {
+                    tcpServer.CloseSelf();
+                    continue;
+                }
+                if (clientWrite.ToLower() == "start")
+                {
+                    tcpServer.StartSelf();
+                    continue;
+                }
+                bool isSuccess = tcpServer.Send(Encoding.UTF8.GetBytes(sendStr));
+
+                if (isSuccess)
+                {
+                    Console.WriteLine("发送成功。" + sendStr, ConsoleColor.Green);
+                }
+                else
+                {
+                    Console.WriteLine("发送失败。", ConsoleColor.Red);
+                }
+            }
+
             /*
             string h = "AA 55 05 00 00 01 00 02 05 05 12 00 FA F5";
             byte[] b = BytesConverter.HexStringToBytes(h);
