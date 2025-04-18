@@ -1,14 +1,14 @@
 using System.Net.Sockets;
 using Controls.Tool;
-using FormOpenSocket111;
 using Util;
+using static Util.TcpServer;
 
 namespace FormOpenSocket
 {
     public partial class Form1 : Form
     {
         OpenSocketV3Client client = new OpenSocketV3Client();
-        ServerTcp tcpServer = new ServerTcp();
+        TcpServer tcpServer = new TcpServer();
         Dictionary<string, Socket> dicClients = new Dictionary<string, Socket>();
         System.Windows.Forms.Timer timer;
         public Form1()
@@ -18,19 +18,22 @@ namespace FormOpenSocket
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
-            tcpServer = new Util.ServerTcp();
+            timer.Start();
+            tcpServer = new Util.TcpServer();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
             try
             {
-                if (dicClients.Count == 0)
+                if (tcpServer == null)
                     return;
-                foreach (var client in dicClients.Values)
+                if (tcpServer.dicClient.Count == 0)
+                    return;
+                foreach (var client in tcpServer.dicClient)
                 {
                     byte[] data = BytesConverter.HexStringToBytes("AA 55 05 00 00 01 00 01 00 00 00 FA F5");
-                    tcpServer.Write(data, 0, data.Length);
+                    tcpServer.WriteAsync( client.Value,data, 0, data.Length);
                 }
             }
             catch { }
