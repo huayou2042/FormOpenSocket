@@ -23,33 +23,33 @@ namespace Controls.Controls
         [Browsable(true)]
         [Category("Customize")]
         [Description("数据长度")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ushort Length { get; set; }
 
         [Browsable(true)]
         [Category("Customize")]
         [Description("十六进制数据")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Hex { get; set; } = string.Empty;
 
         [Browsable(true)]
         [Category("Customize")]
         [Description("功能码")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string FunctionId { get; set; } = string.Empty;
 
         string _text = string.Empty;
         [Browsable(true)]
         [Category("Customize")]
         [Description("控件的显示文本")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public override string Text { get { return _text; } set { _text = value; this.Refresh(); } }
 
         Font fontText;
         [Browsable(true)]
         [Category("Customize")]
         [Description("控件的显示字体")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font TextFont { get { return fontText; } set { fontText = value; this.Refresh(); } }
 
         bool isOn = false;

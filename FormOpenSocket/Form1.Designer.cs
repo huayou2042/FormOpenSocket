@@ -127,15 +127,17 @@
             // 
             // buttonTransfer1
             // 
+            buttonTransfer1.BackColor = SystemColors.Control;
             buttonTransfer1.BorderStyle = BorderStyle.FixedSingle;
-            buttonTransfer1.FunctionId = "0500";
-            buttonTransfer1.Length = (ushort)1;
-            buttonTransfer1.Location = new Point(119, 13);
+            buttonTransfer1.FunctionId = "";
+            buttonTransfer1.Hex = "";
+            buttonTransfer1.Length = (ushort)0;
+            buttonTransfer1.Location = new Point(119, 23);
             buttonTransfer1.Name = "buttonTransfer1";
-            buttonTransfer1.Size = new Size(191, 122);
+            buttonTransfer1.Size = new Size(125, 38);
             buttonTransfer1.TabIndex = 4;
-            buttonTransfer1.Text = "123456789";
-            buttonTransfer1.TextFont = new Font("Microsoft YaHei UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            buttonTransfer1.Text = "hello";
+            buttonTransfer1.TextFont = new Font("Microsoft YaHei UI", 9F);
             // 
             // groupBox2
             // 
