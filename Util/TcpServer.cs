@@ -89,6 +89,10 @@ namespace Util
             var bytesSent = client.Send(dataBytes); // 返回实际发送字节数
             LogMessage($"已发送{bytesSent}字节");
         }
+        public void Write(Socket client, byte[] data)
+        {
+            client.Send(data, 0, data.Length, SocketFlags.None); // 返回实际发送字节数
+        }
         public void Write(Socket client, byte[] data, int start, int len)
         {
             client.Send(data, start, len, SocketFlags.None); // 返回实际发送字节数
@@ -182,10 +186,13 @@ namespace Util
             client.BeginSend(dataBytes, 0, dataBytes.Length, SocketFlags.None,
     new AsyncCallback(WriteCallback), client);
         }
+        public void WriteAsync(Socket client, byte[] data)
+        {
+            client.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(WriteCallback), client);
+        }
         public void WriteAsync(Socket client, byte[] data, int start, int len)
         {
-            client.BeginSend(data, start, len, SocketFlags.None,
-    new AsyncCallback(WriteCallback), client);
+            client.BeginSend(data, start, len, SocketFlags.None, new AsyncCallback(WriteCallback), client);
         }
         private void WriteCallback(IAsyncResult ar)
         {

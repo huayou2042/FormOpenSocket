@@ -1,4 +1,7 @@
 using System.Net.Sockets;
+using System.Text;
+using System.Text.Json;
+using Controls.Entity;
 using Controls.Tool;
 using Util;
 using static Util.TcpServer;
@@ -16,10 +19,34 @@ namespace FormOpenSocket
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = 1000;
+            timer.Interval = 5000;
             timer.Tick += Timer_Tick;
             timer.Start();
             tcpServer = new Util.TcpServer();
+            tcpServer.ClientConnected += TcpServer_ClientConnected;
+            tcpServer.ClientDisconnected += TcpServer_ClientDisconnected;
+            tcpServer.DataReceived += TcpServer_DataReceived;
+        }
+
+        private void TcpServer_DataReceived(object? sender, ClientData e)
+        {
+            string s = $"接收信息【{e.client.RemoteEndPoint.ToString()}】<<  {BytesConverter.ByteArrayToHexString(e.Data, " ")} {Environment.NewLine + "<<<" + Encoding.ASCII.GetString(e.Data)}";
+            ShowTest(richTextBox1, s);
+            var transfer = Transfer.FromBytes(e.Data);
+            string strTransfer = JsonSerializer.Serialize(transfer); 
+            ShowTest(richTextBox1, $"数据信息  {strTransfer}");
+        }
+
+        private void TcpServer_ClientDisconnected(object? sender, Socket e)
+        {
+            string s = $"断开连接【{e.RemoteEndPoint}】";
+            ShowTest(richTextBox1, s);
+        }
+
+        private void TcpServer_ClientConnected(object? sender, Socket e)
+        {
+            string s = $"连接成功【{e.RemoteEndPoint}】";
+            ShowTest(richTextBox1, s);
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -30,10 +57,11 @@ namespace FormOpenSocket
                     return;
                 if (tcpServer.dicClient.Count == 0)
                     return;
+
                 foreach (var client in tcpServer.dicClient)
                 {
                     byte[] data = BytesConverter.HexStringToBytes("AA 55 05 00 00 01 00 01 00 00 00 FA F5");
-                    tcpServer.WriteAsync( client.Value,data, 0, data.Length);
+                    SendData(data, true);
                 }
             }
             catch { }
@@ -51,15 +79,14 @@ namespace FormOpenSocket
                 if (btnListen.Text == "监听")
                 {
                     tcpServer.Listen(tbServerIp.Text, Convert.ToInt32(tbListenPort.Text));
-                    //tcpServer.ClientConnected += TcpServer_ClientConnected;
-                    //tcpServer.ClientDisconnected += TcpServer_ClientDisconnected;
-                    //tcpServer.DataReceived += TcpServer_DataReceived;
                     this.btnListen.Text = "停止监听";
+                    this.tbListenPort.Enabled = false;
                 }
                 else
                 {
                     tcpServer.Stop();
                     this.btnListen.Text = "监听";
+                    this.tbListenPort.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -67,25 +94,6 @@ namespace FormOpenSocket
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void TcpServer_DataReceived(object? sender, ClientData e)
-        {
-            string s = $"客户端接收到信息【{e.client}】";
-            ShowTest(richTextBox1, s);
-        }
-
-        private void TcpServer_ClientDisconnected(object? sender, System.Net.Sockets.TcpClient e)
-        {
-            string s = $"客户端断开连接【{e.Client}】";
-            ShowTest(richTextBox1, s);
-        }
-
-        private void TcpServer_ClientConnected(object? sender, System.Net.Sockets.TcpClient e)
-        {
-            string s = $"客户端连接成功【{e.Client}】";
-            ShowTest(richTextBox1, s);
-        }
-
         public void ShowTest(RichTextBox box, string text)
         {
             if (InvokeRequired)
@@ -94,10 +102,41 @@ namespace FormOpenSocket
                 return;
             }
             text = DateTime.Now + "    " + text;
+            GlobalVar.logger.Info(text);
             if (string.IsNullOrEmpty(text))
                 box.Text = text;
             else
                 box.Text = text + Environment.NewLine + box.Text;
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            byte[] data = BytesConverter.HexStringToBytes(this.tbSendHex.Text);
+            SendData(data, true);
+        }
+
+        public void SendData(byte[] data, bool showText = false)
+        {
+            if (tcpServer == null)
+                return;
+            if (tcpServer.dicClient.Count == 0)
+                return;
+            foreach (var client in tcpServer.dicClient)
+            {
+                tcpServer.Write(client.Value, data, 0, data.Length);
+                if (showText)
+                {
+                    string s = $"发送信息【{client.Value.RemoteEndPoint.ToString()}】>>  【{BytesConverter.ByteArrayToHexString(data, " ")}】";
+                    ShowTest(richTextBox1, s);
+                }
+            }
+        }
+
+        private void numInterval_ValueChanged(object sender, EventArgs e)
+        {
+            timer.Enabled = this.numInterval.Value != 0;
+            if (timer.Enabled)
+                this.timer.Interval = (int)(this.numInterval.Value * 1000);
         }
     }
 }
